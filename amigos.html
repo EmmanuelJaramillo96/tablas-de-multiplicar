@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aplicativo de Pruebas</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: radial-gradient(circle at top, #0a0a0a, #000);
+      color: #f1c40f;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .contenedor {
+      background: rgba(20, 20, 20, 0.95);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 25px rgba(255, 230, 0, 0.5);
+      width: 380px;
+      text-align: center;
+      display: none;
+    }
+
+    .contenedor.activo {
+      display: block;
+    }
+
+    button {
+      background-color: #f1c40f;
+      color: #000;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      width: 85%;
+      margin-top: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      text-transform: uppercase;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #ffd700;
+      box-shadow: 0 0 20px rgba(255, 230, 0, 0.8);
+    }
+
+    .btn-volver {
+      margin-top: 15px;
+      background-color: #222;
+      color: #f1c40f;
+      border: 1px solid #f1c40f;
+    }
+
+    .btn-volver:hover {
+      background-color: #f1c40f;
+      color: #000;
+    }
+
+    #resultado {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Prueba de Amigos</h2>
+
+    <form id="quizForm">
+      <div class="question">
+        <p>1. ¿En el grupo "Los Forever" cuántos integrantes hay?</p>
+        <label><input type="radio" name="q1" value="6"> 6</label>
+        <label><input type="radio" name="q1" value="6 pero faltan 2 por agregar"> 6 pero faltan 2 por agregar</label>
+        <label><input type="radio" name="q1" value="4"> 4</label>
+      </div>
+
+      <div class="question">
+        <p>2. ¿Y de ese grupo cuántos son considerados amigos para su majestad?</p>
+        <label><input type="radio" name="q2" value="3"> 3</label>
+        <label><input type="radio" name="q2" value="5"> 5</label>
+        <label><input type="radio" name="q2" value="4 sacando a Jessica, obvio"> 4 sacando a Jessica, obvio</label>
+      </div>
+
+      <div class="question">
+        <p>3. ¿Que amigo(s) quieren decirle my president como Ruben pero no lo admiten?</p>
+        <label><input type="radio" name="q3" value="Kevin"> Kevin</label>
+        <label><input type="radio" name="q3" value="Jessica"> Jessica</label>
+        <label><input type="radio" name="q3" value="Carmen"> Carmen</label>
+      </div>
+
+      <div class="question">
+        <p>4. ¿Por que Carmen le da rabia que Ruben llame a Emmanuel "My president"?</p>
+        <label><input type="radio" name="q4" value="Porque quisiera ser la única que lo llama así"> Porque quisiera ser la única que lo llama así</label>
+        <label><input type="radio" name="q4" value="No lo hace, solo disimula"> No lo hace, solo disimula</label>
+        <label><input type="radio" name="q4" value="Porque es Ruben y no Kevin"> Porque es Ruben y no Kevin</label>
+      </div>
+
+     
+
+      <button type="button" onclick="calificar()">Calificar</button>
+      <button type="button" class="volver" onclick="window.location.href='menu.html'">Volver al menú</button>
+    </form>
+
+    <div id="resultado" class="resultado"></div>
+  </div>
+
+  <script>
+    function calificar() {
+      const respuestas = {
+        q1: "6 pero faltan 2 por agregar",
+        q2: "4 sacando a Jessica, obvio",
+        q3:"Kevin",
+        q4: "Porque quisiera ser la única que lo llama así",
+
+      };
+
+      let correctas = 0;
+      const total = Object.keys(respuestas).length;
+
+      for (let pregunta in respuestas) {
+        const seleccionada = document.querySelector(`input[name="${pregunta}"]:checked`);
+        if (seleccionada && seleccionada.value === respuestas[pregunta]) {
+          correctas++;
+        }
+      }
+
+      const resultado = document.getElementById("resultado");
+      const porcentaje = Math.round((correctas / total) * 100);
+
+      resultado.style.display = "block";
+      resultado.style.color = correctas === total ? "green" : "red";
+      resultado.innerHTML = `Obtuviste ${correctas} de ${total} respuestas correctas. (${porcentaje}%)`;
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Musica Favorita</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: radial-gradient(circle at top, #0a0a0a, #000);
+      color: #f1c40f;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .contenedor {
+      background: rgba(20, 20, 20, 0.95);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 25px rgba(255, 230, 0, 0.5);
+      width: 380px;
+      text-align: center;
+      display: none;
+    }
+
+    .contenedor.activo {
+      display: block;
+    }
+
+    button {
+      background-color: #f1c40f;
+      color: #000;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      width: 85%;
+      margin-top: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      text-transform: uppercase;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #ffd700;
+      box-shadow: 0 0 20px rgba(255, 230, 0, 0.8);
+    }
+
+    .btn-volver {
+      margin-top: 15px;
+      background-color: #222;
+      color: #f1c40f;
+      border: 1px solid #f1c40f;
+    }
+
+    .btn-volver:hover {
+      background-color: #f1c40f;
+      color: #000;
+    }
+
+    #resultado {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h2>Prueba de Musica</h2>
+
+    <form id="quizForm">
+      <div class="question">
+        <p>1. ¿Cual es la cancion favorita de su majestad para bañarse?</p>
+        <label><input type="radio" name="q1" value="Cumbia"> Cumbia</label>
+        <label><input type="radio" name="q1" value="Reggaeton"> Reggaeton</label>
+        <label><input type="radio" name="q1" value="Salsa"> Salsa</label>
+      </div>
+
+      <div class="question">
+        <p>2. ¿Cuál es el canto Neocatecumal favorito?</p>
+        <label><input type="radio" name="q2" value="Si hoy escuchais"> Si hoy escuchais</label>
+        <label><input type="radio" name="q2" value="El pueblo que caminaba en tinieblas"> El pueblo que caminaba en tinieblas</label>
+        <label><input type="radio" name="q2" value="Balaam"> Balaam</label>
+      </div>
+
+      <div class="question">
+        <p>3. ¿Cuál es el artista favorita de Kevin y Emmanuel?</p>
+        <label><input type="radio" name="q3" value="Arjona"> Arjona</label>
+        <label><input type="radio" name="q3" value="Fonseca"> Fonseca</label>
+        <label><input type="radio" name="q3" value="Kiko"> Kiko</label>
+      </div>
+
+      <div class="question">
+        <p>4. ¿Qué artista escucha su eminencia para hacer didi?</p>
+        <label><input type="radio" name="q4" value="Ana Gabriel">Ana Gabriel</label>
+        <label><input type="radio" name="q4" value="Adele"> Adele</label>
+        <label><input type="radio" name="q4" value="U2"> U2</label>
+      </div>
+
+     
+
+      <button type="button" onclick="calificar()">Calificar</button>
+      <button type="button" class="volver" onclick="window.location.href='menu.html'">Volver al menú</button>
+    </form>
+
+    <div id="resultado" class="resultado"></div>
+  </div>
+
+  <script>
+    function calificar() {
+      const respuestas = {
+        q1: "Reggaeton",
+        q2: "El pueblo que caminaba en tinieblas",
+        q3: "Kiko",
+        q4: "Adele",
+        
+      };
+
+      let correctas = 0;
+      const total = Object.keys(respuestas).length;
+
+      for (let pregunta in respuestas) {
+        const seleccionada = document.querySelector(`input[name="${pregunta}"]:checked`);
+        if (seleccionada && seleccionada.value === respuestas[pregunta]) {
+          correctas++;
+        }
+      }
+
+      const resultado = document.getElementById("resultado");
+      const porcentaje = Math.round((correctas / total) * 100);
+
+      resultado.style.display = "block";
+      resultado.style.color = correctas === total ? "green" : "red";
+      resultado.innerHTML = `Obtuviste ${correctas} de ${total} respuestas correctas. (${porcentaje}%)`;
+    }
+  </script>
+</body>
+</html>
